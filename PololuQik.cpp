@@ -2,7 +2,7 @@
 
 byte cmd[5]; // serial command buffer
 
-PololuQik::PololuQik(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin) : SoftwareSerial(receivePin, transmitPin)
+PololuQik::PololuQik(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin)
 {
   _resetPin = resetPin;
 }
@@ -22,7 +22,6 @@ void PololuQik::init(long speed /* = 9600 */)
 
 char PololuQik::getFirmwareVersion()
 {
-  listen();
   write(QIK_GET_FIRMWARE_VERSION);
   while (available() < 1);
   return read();
@@ -30,7 +29,6 @@ char PololuQik::getFirmwareVersion()
 
 byte PololuQik::getErrors()
 {
-  listen();
   write(QIK_GET_ERROR_BYTE);
   while (available() < 1);
   return read();
@@ -38,7 +36,6 @@ byte PololuQik::getErrors()
 
 byte PololuQik::getConfigurationParameter(byte parameter)
 {
-  listen();
   cmd[0] = QIK_GET_CONFIGURATION_PARAMETER;
   cmd[1] = parameter;
   write(cmd, 2);
@@ -48,7 +45,6 @@ byte PololuQik::getConfigurationParameter(byte parameter)
 
 byte PololuQik::setConfigurationParameter(byte parameter, byte value)
 {
-  listen();
   cmd[0] = QIK_SET_CONFIGURATION_PARAMETER;
   cmd[1] = parameter;
   cmd[2] = value;
@@ -169,7 +165,6 @@ void PololuQik2s12v10::setBrakes(unsigned char m0Brake, unsigned char m1Brake)
 
 unsigned char PololuQik2s12v10::getM0Current()
 {
-  listen();
   write(QIK_2S12V10_GET_MOTOR_M0_CURRENT);
   while (available() < 1);
   return read();
@@ -177,7 +172,6 @@ unsigned char PololuQik2s12v10::getM0Current()
 
 unsigned char PololuQik2s12v10::getM1Current()
 {
-  listen();
   write(QIK_2S12V10_GET_MOTOR_M1_CURRENT);
   while (available() < 1);
   return read();
@@ -195,7 +189,6 @@ unsigned int PololuQik2s12v10::getM1CurrentMilliamps()
 
 unsigned char PololuQik2s12v10::getM0Speed()
 {
-  listen();
   write(QIK_2S12V10_GET_MOTOR_M0_SPEED);
   while (available() < 1);
   return read();
@@ -203,7 +196,6 @@ unsigned char PololuQik2s12v10::getM0Speed()
 
 unsigned char PololuQik2s12v10::getM1Speed()
 {
-  listen();
   write(QIK_2S12V10_GET_MOTOR_M1_SPEED);
   while (available() < 1);
   return read();
