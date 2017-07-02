@@ -2,7 +2,6 @@
 #define PololuQik_h
 
 #include <Arduino.h>
-//#include <SoftwareSerial.h>
 #include <HardwareSerial.h>
 
 
